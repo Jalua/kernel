@@ -84,7 +84,7 @@ class Game
   load_wesmod_by_path: (wesmod_path) =>
     log.info("Loading WesMod at: " .. wesmod_path)
     -- Note: order matters
-    -- knowns = { "Eras", "Help", "Tips", "WesMods" }
+    -- knowns = { "Eras", "Help", "Tips" }
     knowns = { "WML", "Mechanics", "Terrains", "Units", "Scenarios" }
     found = ""
     for folder in *knowns
@@ -114,9 +114,13 @@ class Game
     -- @core_loaded = false
     -- @core_loaded = true --- @TODO
     @state =
+      Registry:
+        maps: {}
+        scenarios: {}
+        wml_tags: {}
       ENV: -- holds tables being used as env
         on_scan:
-          wml_config: (cfg) -> @state.WesMods.wml_tags[cfg.name] = true
+          wml_config: (cfg) -> @state.Registry.wml_tags[cfg.name] = true
         folders: -- envs for wesmod content folders
           Mechanics: {}
           Terrains: {}
@@ -156,17 +160,16 @@ class Game
         traits: {}
         -- unit_types ---> movetypes, races, traits
         unit_types: {}
-      WesMods:
-        roots: {}
-        campaigns: {}
-        eras: {}
-        game_cores: {}
-        scenarios: {}
-        wml_tags: {}
+      WesMods: {}
+      --  roots: {}
+      --  campaigns: {}
+      --  eras: {}
+      --  game_cores: {}
       Eras:
         factions: {}
         eras: {}
       Scenarios: {}
+      Maps: {}
 
     -- root must be loaded first or only wml_config function is known.
     if data_dir

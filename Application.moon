@@ -81,13 +81,10 @@ if not (data_found or userdata_found)
 -- 1) Load basics from toplevel root
 -- 2) Next we need a core or there won't be any content
 -- 3) Ready to load a scenario now -- load only the content
--- 4)
 game = require("Game")(data_dir, userdata_dir)
 --game\debug! -- The game should print the root content
---game\load_wesmod("") -- a core
---  game\debug!
---if game\load_wesmod("test") -- a scenario
---  game\debug!
+if game\load_wesmod("test") -- a core
+  game\debug!
 
 game\debug!
 
